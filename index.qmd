@@ -1,11 +1,11 @@
 ---
 title: "Homework 1"
-author: "[Insert your name here]{style='background-color: yellow;'}"
+author: "[Ziyao Yang]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-# format: html
-format: pdf
+format: html
+#format: pdf
 ---
 
 [Link to the Github repository](https://github.com/psu-stat380/hw-1)
@@ -75,6 +75,7 @@ In this question, we will walk through the process of _forking_ a `git` reposito
     Remember to **include your name** in the pull request information!
 
 If you're stuck at any step along the way, you can refer to the [official Github docs here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+
 
 
 <br><br><br><br>
