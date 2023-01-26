@@ -4,8 +4,8 @@ author: "[Ziyao Yang]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-format: html
-#format: pdf
+#format: html
+format: pdf
 editor: 
   markdown: 
     wrap: 72
@@ -93,6 +93,9 @@ repository and submitting a *pull request*.
 If you're stuck at any step along the way, you can refer to the
 [official Github docs
 here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+[^1]
+
+[^1]: I was unable to render the pdf file. I upgrade R version and all the packages, followed the instructions returned by "renv::status()" and synchronized the project with the lockfile. I'm not sure if these are the right process to solve the problem but I did successfully rendered pdf after these steps.
 
 <br><br><br><br> <br><br><br><br> ---
 
@@ -257,9 +260,9 @@ col_wise_scan <- function(x){
 ```
 
 You can check if your code is doing what it's supposed to using the
-function here[^1]
+function here[^2]
 
-[^1]: If your code is right, the following code should evaluate to be
+[^2]: If your code is right, the following code should evaluate to be
     `TRUE`
 
     ``` r

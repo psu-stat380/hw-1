@@ -358,11 +358,11 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">generate_matrix</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            [,1]       [,2]        [,3]        [,4]
-[1,] -0.29806162 -0.9853331  0.83509155  1.08056723
-[2,] -0.02484958 -0.9677925  1.10372301 -0.09484201
-[3,] -1.39877227 -0.6147711 -1.16415805  0.43060456
-[4,] -0.22680619  0.3392072  0.06711117 -0.19413952</code></pre>
+<pre><code>           [,1]       [,2]       [,3]        [,4]
+[1,] -0.3413418 -0.3282958 -2.2336299 -0.65182247
+[2,]  0.1046543  0.6836164 -0.2689936 -1.02208319
+[3,] -1.3101959  0.1102654  0.3244037  0.01004452
+[4,]  1.0882062 -1.6491727  1.6772495  0.50270605</code></pre>
 </div>
 </div>
 <p>Let <code>M</code> be a fixed <span class="math inline">\(50 \times 50\)</span> matrix</p>
@@ -370,7 +370,7 @@ Tip
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">generate_matrix</span>(<span class="dv">50</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(M)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.007293709</code></pre>
+<pre><code>[1] -0.00847285</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -438,13 +438,13 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R version 4.2.1 (2022-06-23)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur ... 10.16
+<pre><code>R version 4.2.2 (2022-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Monterey 12.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -453,8 +453,8 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_4.2.1  fastmap_1.1.0   cli_3.6.0       htmltools_0.5.4
- [5] tools_4.2.1     yaml_2.3.7      rmarkdown_2.20  knitr_1.42     
+ [1] compiler_4.2.2  fastmap_1.1.0   cli_3.6.0       htmltools_0.5.4
+ [5] tools_4.2.2     yaml_2.3.7      rmarkdown_2.20  knitr_1.42     
  [9] xfun_0.36       digest_0.6.31   jsonlite_1.8.4  rlang_1.0.6    
 [13] renv_0.16.0-53  evaluate_0.20  </code></pre>
 </div>
