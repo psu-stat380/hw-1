@@ -128,18 +128,19 @@ my_vec_double
 3. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
-```{R}
-my_vec_bool <- for(x in my_vec_double){
-    if(x < 0){
-        x = TRUE
-        append(x)
+
+ ```{R}
+my_vec_bool <- 'empty'
+for(x in my_vec_double){
+    if(x <= 0){
+        x = 'TRUE'
+        my_vec_bool <- c(my_vec_bool, x)
     }else{
-        x = FALSE
-        append(x)
+        x = 'FALSE'
+        my_vec_bool <- c(my_vec_bool, x)
     }
 }
-
-    
+my_vec_bool <- my_vec_bool[! my_vec_bool %in% c('empty')]
 my_vec_bool
 ```
     How many elements of `my_vec_double` are greater than zero?
@@ -181,7 +182,22 @@ $$
 
 Recall the discussion in class on how `R` fills in matrices
 :::
+```{R}
+x <- matrix(
+    c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+    nrow=3,
+    byrow = TRUE
+)
+x
+```
 
+```{R}
+x2 <- matrix(
+    nrow=2,
+    byrow = TRUE    
+    
+)
+```
 In the next part, we will discover how knowledge of the way in which a matrix is stored in memory can inform better code choices. To this end, the following function takes an input $n$ and creates an $n \times n$ matrix with random entries. 
 
 ```{R}
@@ -212,7 +228,7 @@ mean(M)
 
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
@@ -221,7 +237,7 @@ row_wise_scan <- function(x){
     count <- 0
     for(...){
         for(...){
-            if(...){
+            if(x >= 0){
                 count <- count + 1 
             }
         }
@@ -249,11 +265,11 @@ You can check if your code is doing what it's supposed to using the function her
 
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
 
-```R
+```{R}
 time_scan <- function(f, M){
-    initial_time <- ... # Write your code here
+    initial_time <- Sys.time()
     f(M)
-    final_time <- ...  # Write your code here
+    final_time <- Sys.time()
     
     total_time_taken <- final_time - initial_time
     return(total_time_taken)
