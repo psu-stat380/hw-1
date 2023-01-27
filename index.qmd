@@ -4,8 +4,8 @@ author: "[Marc Hughes]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-# format: html
-format: pdf
+format: html
+# format: pdf
 ---
 
 [Link to the Github repository](https://github.com/psu-stat380/hw-1)
@@ -337,7 +337,7 @@ list(
     col_wise_time = time_scan(row_wise_scan, M)
 )
 ```
-    
+  
 
 What can you conclude?
 
