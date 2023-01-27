@@ -128,7 +128,6 @@ my_vec_double
 3. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
-
 ```{R}
 my_vec_bool <- for(x in my_vec_double){
     if(x < 0){
@@ -145,10 +144,12 @@ my_vec_bool
 ```
     How many elements of `my_vec_double` are greater than zero?
 
+    4
 
-    
 4. Sort the values of `my_vec_double` in ascending order. 
-
+```{R}
+sort(my_vec_double)
+```
 
 <br><br><br><br>
 <br><br><br><br>
