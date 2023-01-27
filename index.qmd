@@ -101,22 +101,53 @@ my_vec <- c(
     "+1.76",
     "-0.36"
 )
-my_vec
+typeof(my_vec)
 ```
 
 For the following questions, provide your answers in a code cell.
 
 1. What data type does the vector contain?
 
-1. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+The vector contains characters. 
 
-1. Create a new vector `my_vec_bool` which comprises of:
+2. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+
+```{R}
+my_vec_int <- as.integer(my_vec)
+
+typeof(my_vec_int)
+my_vec_int
+```
+
+```{R}
+my_vec_double <- as.double(my_vec)
+
+typeof(my_vec_double)
+my_vec_double
+```
+3. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
 
+```{R}
+my_vec_bool <- for(x in my_vec_double){
+    if(x < 0){
+        x = TRUE
+        append(x)
+    }else{
+        x = FALSE
+        append(x)
+    }
+}
+
+    
+my_vec_bool
+```
     How many elements of `my_vec_double` are greater than zero?
 
-1. Sort the values of `my_vec_double` in ascending order. 
+
+    
+4. Sort the values of `my_vec_double` in ascending order. 
 
 
 <br><br><br><br>
