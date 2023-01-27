@@ -193,10 +193,12 @@ x
 
 ```{R}
 x2 <- matrix(
+    c(1:100, (1:100)^2),
     nrow=2,
-    byrow = TRUE    
+    byrow = TRUE
+)    
     
-)
+x2
 ```
 In the next part, we will discover how knowledge of the way in which a matrix is stored in memory can inform better code choices. To this end, the following function takes an input $n$ and creates an $n \times n$ matrix with random entries. 
 
