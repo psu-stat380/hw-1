@@ -95,7 +95,11 @@ If you're stuck at any step along the way, you can refer to the
 here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
 [^1]
 
-[^1]: I was unable to render the pdf file. I upgrade R version and all the packages, followed the instructions returned by "renv::status()" and synchronized the project with the lockfile. I'm not sure if these are the right process to solve the problem but I did successfully rendered pdf after these steps.
+[^1]: I was unable to render the pdf file. I upgrade R version and all
+    the packages, followed the instructions returned by "renv::status()"
+    and synchronized the project with the lockfile. I'm not sure if
+    these are the right process to solve the problem but I did
+    successfully rendered pdf after these steps.
 
 <br><br><br><br> <br><br><br><br> ---
 
@@ -188,6 +192,32 @@ large data structures in memory.
     \end{bmatrix}
     $$
 
+    ```{R}
+    mygenerate_matrix1 <- function(n){
+        return(
+            matrix(
+                1:n^2,
+                ncol=n,
+                byrow = T
+            )
+        )
+    }
+    mymatrix1 <- mygenerate_matrix1(3)
+    mymatrix1
+    ```
+
+    ```{R}
+    row1 = 1:100
+    row2 = row1^2
+
+    mymatrix2 <- matrix(
+                    data = c(row1,row2),
+                    ncol=length(row1),
+                    byrow = T
+    )
+    mymatrix2
+    ```
+
 ::: callout-warning
 ## Tip
 
@@ -219,7 +249,7 @@ generate_matrix(4)
 Let `M` be a fixed $50 \times 50$ matrix
 
 ```{R}
-M <- generate_matrix(50)
+M <- generate_matrix(5000)
 mean(M)
 ```
 
@@ -246,6 +276,27 @@ row_wise_scan <- function(x){
 }
 ```
 
+```{R}
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    # Insert your code here
+    count <- 0
+    for(i in 1:n){
+        for(j in 1:m){
+            if(x[i,j] >= 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+row_wise_scan(M)
+#system.time({row_wise_scan(M)})
+```
+
 3.  Similarly, write a function `col_wise_scan` which does exactly the
     same thing but scans the entries of `M` one column after another
 
@@ -257,6 +308,27 @@ col_wise_scan <- function(x){
 
     return(count)
 }
+```
+
+```{R}
+col_wise_scan <- function(x){
+    count <- 0
+    
+    # Insert your code here
+    n <- nrow(x)
+    m <- ncol(x)
+    
+        for(i in 1:m){
+        for(j in 1:n){
+            if(x[j,i] >= 0){
+                count <- count + 1 
+            }
+        }
+        }
+    
+    return(count)
+}
+col_wise_scan(M)
 ```
 
 You can check if your code is doing what it's supposed to using the
@@ -275,6 +347,13 @@ function here[^2]
 4.  Between `col_wise_scan` and `row_wise_scan`, which function do you
     expect to take shorter to run? Why?
 
+    The `col_wise_scan` suppose to run faster because in r the matrix is
+    stored by columns, which means they are stored one columns after
+    other. When R is search one columns after other, it can follow the
+    sequence that the data were stored. Whereas when the code asks to
+    search row by row, R in the memory need to jump around to find the
+    right data(entries).
+
 5.  Write a function `time_scan` which takes in a method `f` and a
     matrix `M` and outputs the amount of time taken to run `f(M)`
 
@@ -289,23 +368,72 @@ time_scan <- function(f, M){
 }
 ```
 
+```{R}
+time_scan <- function(f, M){
+    initial_time <- Sys.time() # Write your code here
+    f(M)
+    final_time <- Sys.time()  # Write your code here
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+```
+
 Provide your output to
 
 ``` r
 list(
     row_wise_time = time_scan(row_wise_scan, M),
-    col_wise_time = time_scan(row_wise_scan, M)
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+```{R}
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
 )
 ```
 
 Which took longer to run?
 
+`row_wise_scan` took longer to run.
+
 6.  Repeat this experiment now when:
     -   `M` is a $100 \times 100$ matrix
+
+        ```{R}
+        M <- generate_matrix(100)
+
+        list(
+            row_wise_time = time_scan(row_wise_scan, M),
+            col_wise_time = time_scan(col_wise_scan, M)
+        )
+        ```
+
     -   `M` is a $1000 \times 1000$ matrix
+
+        ```{R}
+        M <- generate_matrix(1000)
+        list(
+            row_wise_time = time_scan(row_wise_scan, M),
+            col_wise_time = time_scan(col_wise_scan, M)
+        )
+        ```
+
     -   `M` is a $5000 \times 5000$ matrix
 
+        ```{R}
+        M <- generate_matrix(5000)
+        list(
+            row_wise_time = time_scan(row_wise_scan, M),
+            col_wise_time = time_scan(col_wise_scan, M)
+        )
+        ```
+
 What can you conclude?
+
+It is faster the search columns by columns.
 
 <br><br><br><br> <br><br><br><br> ---
 
