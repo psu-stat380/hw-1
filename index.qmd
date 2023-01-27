@@ -4,14 +4,14 @@ author: "[Ziyao Yang]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-#format: html
-format: pdf
+format: html
+# format: pdf
 editor: 
   markdown: 
     wrap: 72
 ---
 
-[Link to the Github repository](https://github.com/psu-stat380/hw-1)
+[Link to the Github repository](https://github.com/Ziyao3000/hw-1)
 
 ------------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ If you're stuck at any step along the way, you can refer to the
 here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
 [^1]
 
-[^1]: I was unable to render the pdf file. I upgrade R version and all
+[^1]: I was unable to render the pdf file at first. I upgrade R version and all
     the packages, followed the instructions returned by "renv::status()"
     and synchronized the project with the lockfile. I'm not sure if
     these are the right process to solve the problem but I did
@@ -249,7 +249,7 @@ generate_matrix(4)
 Let `M` be a fixed $50 \times 50$ matrix
 
 ```{R}
-M <- generate_matrix(5000)
+M <- generate_matrix(50)
 mean(M)
 ```
 
@@ -433,7 +433,7 @@ Which took longer to run?
 
 What can you conclude?
 
-It is faster the search columns by columns.
+It is faster to search columns by columns.
 
 <br><br><br><br> <br><br><br><br> ---
 
