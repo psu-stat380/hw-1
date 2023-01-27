@@ -1,6 +1,6 @@
 ---
 title: "Homework 1"
-author: "[Insert your name here]{style='background-color: yellow;'}"
+author: "[Advait Ashtikar]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
@@ -33,6 +33,15 @@ Please read the instructions carefully before submitting your assignment.
 
 <br><br><br><br>
 ---
+
+## Loading libraries
+```{R}
+library(tidyverse)
+library(dplyr)
+
+```
+
+
 
 ## Question 1
 ::: {.callout-tip}
@@ -107,16 +116,35 @@ my_vec <- c(
 For the following questions, provide your answers in a code cell.
 
 1. What data type does the vector contain?
+```{R}
+#  The vector contains the data type 'Character'
+```
+
 
 1. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+```{R}
+my_vec_double <- as.double(my_vec)
+my_vec_int <- as.integer(my_vec)
+```
+
 
 1. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
 
     How many elements of `my_vec_double` are greater than zero?
+```{R}
+my_vec_bool <- my_vec_double <= 0
+
+sum(my_vec_double > 0)
+# There are 4 elements of my_vec_double that are greater than zero
+```
+
 
 1. Sort the values of `my_vec_double` in ascending order. 
+```{R}
+sort(my_vec_double)
+```
 
 
 <br><br><br><br>
