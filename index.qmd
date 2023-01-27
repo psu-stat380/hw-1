@@ -126,14 +126,25 @@ my_vec_int = as.integer(my_vec)
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
 
+```{R}
+my_vec_bool <- ifelse(my_vec_double <= 0, TRUE, FALSE)
+my_vec_bool
+```
+
     How many elements of `my_vec_double` are greater than zero?
     
 ```{R}
-
+elem_gt_zero <- sum(my_vec_bool == FALSE)
+elem_gt_zero
 ```
 
 
 1. Sort the values of `my_vec_double` in ascending order. 
+
+```{R}
+# using the sort function and specifying 'decreasing' as 'FALSE' to sort in ascending order
+sort(my_vec_double, decreasing = FALSE)
+```
 
 
 <br><br><br><br>
@@ -160,6 +171,27 @@ $$
 1 & 4 & 9 & 16 & 25 & \dots & 10000\\
 \end{bmatrix}
 $$
+
+```{R}
+# Part 1
+# creating the matrix
+my_matrix1 <- matrix(1:9, nrow=3, byrow = TRUE)
+my_matrix1
+
+```
+
+```{R}
+# Part 2
+# creating a vector to use as matrix data
+vec <- c(1:100)
+mat1 <- matrix(vec, nrow=1)
+# squaring the vector to create the desired values
+mat2 <- matrix(vec^2, nrow=1)
+# using 'rbind' to bind the to matrices by their rows
+my_matrix2 <- rbind(mat1, mat2)
+my_matrix2
+```
+
 
 ::: {.callout-warning}
 ## Tip
@@ -197,16 +229,16 @@ mean(M)
 
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R}
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(i in 1:n){
+        for(j in 1:m){
+            if(x[i,j] >= 0){
                 count <- count + 1 
             }
         }
@@ -219,11 +251,20 @@ row_wise_scan <- function(x){
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
 
-```R
+```{R}
 col_wise_scan <- function(x){
     count <- 0
     
-    ... # Insert your code here
+    n <- nrow(x)
+    m <- ncol(x)
+    
+    for(i in 1:m){
+      for(j in 1:n){
+        if(x[j, i] >= 0){
+          count <- count + 1
+        }
+      }
+    }
 
     return(count)
 }
@@ -231,6 +272,8 @@ col_wise_scan <- function(x){
 You can check if your code is doing what it's supposed to using the function here[^footnote]
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
+
+I am expecting row_wise_scan to take shorter to run because R programming stores data in sequential columns.
 
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
 
