@@ -4,8 +4,8 @@ author: "Brady Miller"
 toc: true
 title-block-banner: true
 title-block-style: default
-#format: html
-format: pdf
+format: html
+#format: pdf
 editor: 
   markdown: 
     wrap: 72
@@ -252,9 +252,8 @@ row_wise_scan <- function(x){
     count <- 0
     for(row in 1:n){
         for(col in 1:m){
-            if(x[row,col] > 0){
+            if(x[row,col] >= 0){
                 count <- count + 1 
-                print(x[row,col])
             }
         }
     }
@@ -274,9 +273,8 @@ col_wise_scan <- function(x){
     m <- ncol(x)
     for(col in 1:m){
         for(row in 1:n){
-            if(x[row,col] > 0){
-                count <- count + 1 
-                print(x[row,col])
+            if(x[row,col] >= 0){
+                count <- count + 1
             }
         }
     }
@@ -301,15 +299,20 @@ function here[^1]
 
 4.  Between `col_wise_scan` and `row_wise_scan`, which function do you
     expect to take shorter to run? Why?
+    
+    I would think that the 'col_wise_scan' would take shorter to run. I think
+    this because matrices in R naturally fill column by column, so I feel as if
+    that might play a role in the 'col_wise_scan' being quicker than the 
+    'row_wise_scan'. 
 
 5.  Write a function `time_scan` which takes in a method `f` and a
     matrix `M` and outputs the amount of time taken to run `f(M)`
 
-``` r
+``` {r}
 time_scan <- function(f, M){
-    initial_time <- ... # Write your code here
+    initial_time <- Sys.time()
     f(M)
-    final_time <- ...  # Write your code here
+    final_time <- Sys.time()
     
     total_time_taken <- final_time - initial_time
     return(total_time_taken)
@@ -318,21 +321,52 @@ time_scan <- function(f, M){
 
 Provide your output to
 
-``` r
+``` {r}
 list(
     row_wise_time = time_scan(row_wise_scan, M),
-    col_wise_time = time_scan(row_wise_scan, M)
+    col_wise_time = time_scan(col_wise_scan, M)
 )
 ```
 
 Which took longer to run?
 
+The col_wise_scan function took longer to run than the
+row_wise_scan function. 
+
 6.  Repeat this experiment now when:
     -   `M` is a $100 \times 100$ matrix
+```{r}
+M <- generate_matrix(100)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+
     -   `M` is a $1000 \times 1000$ matrix
+```r
+M <- generate_matrix(1000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+``` 
+
+
     -   `M` is a $5000 \times 5000$ matrix
+```r
+M <- generate_matrix(5000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
 
 What can you conclude?
+
+After running the time scans for both matrix scanning methods on various size 
+matrices, I conclude that the row_wise_scan is faster than the col_wise_scan.
 
 <br><br><br><br> <br><br><br><br> ---
 
