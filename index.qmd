@@ -194,6 +194,21 @@ large data structures in memory.
 
 Recall the discussion in class on how `R` fills in matrices
 :::
+```{r}
+matrix(
+  c(1,2,3,4,5,6,7,8,9),
+  nrow = 3, 
+  byrow = TRUE
+)
+```
+```{r}
+matrix(
+  c((1:100),(1:100)^2),
+  nrow = 2,
+  byrow = TRUE
+)
+```
+
 
 In the next part, we will discover how knowledge of the way in which a
 matrix is stored in memory can inform better code choices. To this end,
@@ -228,17 +243,18 @@ mean(M)
     row after another and outputs the number of elements whose value is
     $\ge 0$. You can use the following **starter code**
 
-``` r
+``` {r}
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(row in 1:n){
+        for(col in 1:m){
+            if(x[row,col] > 0){
                 count <- count + 1 
+                print(x[row,col])
             }
         }
     }
@@ -250,11 +266,20 @@ row_wise_scan <- function(x){
 3.  Similarly, write a function `col_wise_scan` which does exactly the
     same thing but scans the entries of `M` one column after another
 
-``` r
+``` {r}
 col_wise_scan <- function(x){
     count <- 0
-    
-    ... # Insert your code here
+    # Insert your code     
+    n <- nrow(x)
+    m <- ncol(x)
+    for(col in 1:m){
+        for(row in 1:n){
+            if(x[row,col] > 0){
+                count <- count + 1 
+                print(x[row,col])
+            }
+        }
+    }
 
     return(count)
 }
@@ -267,6 +292,7 @@ function here[^1]
     `TRUE`
 
     ``` r
+    library(tidyverse)
     sapply(1:100, function(i) {
         x <- generate_matrix(100)
         row_wise_scan(x) == col_wise_scan(x)
