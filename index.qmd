@@ -1,10 +1,9 @@
 ---
 title: "Homework 1"
-author: "[Insert your name here]{style='background-color: yellow;'}"
+author: "[Sneha Prem Chandran]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-# format: html
 format: pdf
 ---
 
@@ -14,7 +13,6 @@ format: pdf
 
 ::: {.callout-important}
 ## Due: Sun, Jan 29, 2023 @ 11:59pm
-
 
 
 Please read the instructions carefully before submitting your assignment. 
@@ -107,17 +105,46 @@ my_vec <- c(
 For the following questions, provide your answers in a code cell.
 
 1. What data type does the vector contain?
+```{R}
+"The vector contains strings of numbers."
+```
 
 1. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+```{R}
+my_vec_double <- as.double(my_vec)
+my_vec_int <- as.integer(my_vec)
+
+my_vec_double
+my_vec_int
+```
 
 1. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
 
     How many elements of `my_vec_double` are greater than zero?
+    
+```{R}
+my_vec_bool <- c()
+for(i in my_vec_double){
+  if (i<=0){
+    append(my_vec_bool, TRUE)
+  } else {
+    append(my_vec_bool, "FALSE")
+  }
+  
+}
+
+my_vec_bool
+
+```
+
 
 1. Sort the values of `my_vec_double` in ascending order. 
 
+```{R}
+sort(my_vec_double, decreasing = FALSE)
+```
 
 <br><br><br><br>
 <br><br><br><br>
