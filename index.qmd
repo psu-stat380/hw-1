@@ -331,7 +331,7 @@ list(
 
 What can you conclude?
 
-While the time difference is very minuscule, col_wise_scan() runs faster than row_wise_scan(). 
+While the time difference is very minuscule, col_wise_scan() runs slightly faster than row_wise_scan(). 
 
 <br><br><br><br>
 <br><br><br><br>
