@@ -142,8 +142,28 @@ typeof(my_vec_int)
     -   `r FALSE` if an element in `my_vec_double` is $\ge 0$
 
     How many elements of `my_vec_double` are greater than zero?
+    
+```{r}
+my_vec_bool <- c()
+count = 0
+
+for (i in my_vec_double) {
+  if (i > 0) {
+    my_vec_bool <- append(my_vec_bool, "TRUE", after = length(my_vec_bool))
+    count <- count + 1
+  }
+  else{
+        my_vec_bool <- append(my_vec_bool, "FALSE", after = length(my_vec_bool))
+  }
+}
+my_vec_bool
+print(paste("The number of elements in 'my_vec_double' that are greater than zero is", count))
+```
 
 4.  Sort the values of `my_vec_double` in ascending order.
+```{r}
+sort(my_vec_double)
+```
 
 <br><br><br><br> <br><br><br><br> ---
 
