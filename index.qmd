@@ -175,6 +175,21 @@ $$
 ## Tip
 
 Recall the discussion in class on how `R` fills in matrices
+
+```{R}
+matrix(1:9, nrow=3, byrow=TRUE)
+
+data <- seq(1,100, 1) 
+
+data2 <- data^2
+
+datafull <- c(data, data2)
+
+matrix(datafull, nrow=2, ncol=100, byrow=TRUE)
+
+```
+
+
 :::
 
 In the next part, we will discover how knowledge of the way in which a matrix is stored in memory can inform better code choices. To this end, the following function takes an input $n$ and creates an $n \times n$ matrix with random entries. 
@@ -204,19 +219,18 @@ M <- generate_matrix(50)
 mean(M)
 ```
 
-
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R}
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(){
+        for(){
+            if(){
                 count <- count + 1 
             }
         }
@@ -229,15 +243,20 @@ row_wise_scan <- function(x){
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
 
-```R
+```{R}
 col_wise_scan <- function(x){
+    x <- generate_matrix(x)
     count <- 0
-    
-    ... # Insert your code here
+    for (i in x) {
+      if (i <=0) {
+        count = count + 1
+      }
+    }
 
     return(count)
 }
 ```
+
 You can check if your code is doing what it's supposed to using the function here[^footnote]
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
