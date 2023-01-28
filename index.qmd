@@ -4,7 +4,7 @@ author: "Brady Miller"
 toc: true
 title-block-banner: true
 title-block-style: default
-# format: html
+#format: html
 format: pdf
 editor: 
   markdown: 
@@ -157,7 +157,7 @@ for (i in my_vec_double) {
   }
 }
 my_vec_bool
-print(paste("The number of elements in 'my_vec_double' that are greater than zero is", count))
+print(paste("There are", count, "elements in 'my_vec_double' greater than zero"))
 ```
 
 4.  Sort the values of `my_vec_double` in ascending order.
