@@ -20,6 +20,13 @@ my_vec <- c(
     "-0.36"
 )
 
+#1)
+typeof(my_vec)
 
+# My_Vec contains "character" type data
+
+#2)
+my_vec_double = as.double(my_vec)
+my_vec_int = as.integer(my_vec)
 ```
 
