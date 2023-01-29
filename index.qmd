@@ -1,11 +1,11 @@
 ---
 title: "Homework 1"
-author: "[Insert your name here]{style='background-color: yellow;'}"
+author: "[Brian Montagna]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
-# format: html
-format: pdf
+format: html
+#format: pdf
 ---
 
 [Link to the Github repository](https://github.com/psu-stat380/hw-1)
@@ -101,23 +101,56 @@ my_vec <- c(
     "+1.76",
     "-0.36"
 )
+typeof(my_vec)
 ```
-
 
 For the following questions, provide your answers in a code cell.
 
 1. What data type does the vector contain?
 
-1. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+The vector contains characters. 
 
-1. Create a new vector `my_vec_bool` which comprises of:
+2. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+
+```{R}
+my_vec_int <- as.integer(my_vec)
+
+typeof(my_vec_int)
+my_vec_int
+```
+
+```{R}
+my_vec_double <- as.double(my_vec)
+
+typeof(my_vec_double)
+my_vec_double
+```
+3. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
     * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
 
+ ```{R}
+my_vec_bool <- 'empty'
+for(x in my_vec_double){
+    if(x <= 0){
+        x = 'TRUE'
+        my_vec_bool <- c(my_vec_bool, x)
+    }else{
+        x = 'FALSE'
+        my_vec_bool <- c(my_vec_bool, x)
+    }
+}
+my_vec_bool <- my_vec_bool[! my_vec_bool %in% c('empty')]
+my_vec_bool
+```
     How many elements of `my_vec_double` are greater than zero?
 
-1. Sort the values of `my_vec_double` in ascending order. 
+    4
 
+4. Sort the values of `my_vec_double` in ascending order. 
+```{R}
+sort(my_vec_double)
+```
 
 <br><br><br><br>
 <br><br><br><br>
@@ -149,7 +182,24 @@ $$
 
 Recall the discussion in class on how `R` fills in matrices
 :::
+```{R}
+x <- matrix(
+    c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+    nrow=3,
+    byrow = TRUE
+)
+x
+```
 
+```{R}
+x2 <- matrix(
+    c(1:100, (1:100)^2),
+    nrow=2,
+    byrow = TRUE
+)    
+    
+x2
+```
 In the next part, we will discover how knowledge of the way in which a matrix is stored in memory can inform better code choices. To this end, the following function takes an input $n$ and creates an $n \times n$ matrix with random entries. 
 
 ```{R}
@@ -180,16 +230,16 @@ mean(M)
 
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R}
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(x in n){
+        for(n in m){
+            if(x >= 0){
                 count <- count + 1 
             }
         }
@@ -202,26 +252,36 @@ row_wise_scan <- function(x){
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
 
-```R
+```{R}
 col_wise_scan <- function(x){
     count <- 0
     
     ... # Insert your code here
+    for(x in m){
+        for(m in n){
+            if(x >= 0){
+                count <- count + 1 
+            }
+        }
+    }
 
     return(count)
 }
+
 ```
 You can check if your code is doing what it's supposed to using the function here[^footnote]
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
 
+I think row_wise_scan will take shorter to run because it is easier to scan across a matrix then down each collumn.
+
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
 
-```R
+```{R}
 time_scan <- function(f, M){
-    initial_time <- ... # Write your code here
+    initial_time <- Sys.time()
     f(M)
-    final_time <- ...  # Write your code here
+    final_time <- Sys.time()
     
     total_time_taken <- final_time - initial_time
     return(total_time_taken)
@@ -230,7 +290,7 @@ time_scan <- function(f, M){
 
 Provide your output to
 
-```R
+```{R}
 list(
     row_wise_time = time_scan(row_wise_scan, M),
     col_wise_time = time_scan(row_wise_scan, M)
@@ -238,12 +298,16 @@ list(
 ```
 Which took longer to run? 
 
+Col_wise_scan took longer to run
+
 6. Repeat this experiment now when:
     * `M` is a $100 \times 100$ matrix
     * `M` is a $1000 \times 1000$ matrix
     * `M` is a $5000 \times 5000$ matrix
 
 What can you conclude?
+
+I can conclude that the more rows that you add the longer it takes for the scans to run.
 
 <br><br><br><br>
 <br><br><br><br>
@@ -259,9 +323,9 @@ sessionInfo()
 
 [^footnote]: If your code is right, the following code should evaluate to be `TRUE`
 
-    ```R
-    sapply(1:100, function(i) {
-        x <- generate_matrix(100)
-        row_wise_scan(x) == col_wise_scan(x)
-    }) %>% sum == 100
-    ```
+```{R
+sapply(1:100, function(i) {
+    x <- generate_matrix(100)
+    row_wise_scan(x) == col_wise_scan(x)
+}) %>% sum == 100
+```
