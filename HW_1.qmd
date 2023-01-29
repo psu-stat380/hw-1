@@ -60,3 +60,136 @@ There are four elements greater than 0.
 ```{r}
 sort(my_vec_double)
 ```
+
+# Question 3
+
+1\.
+
+```{r}
+print(array(c(c(1, 4, 7), c(2, 5, 8), c(3, 6, 9)), dim = c(3,3)))
+```
+
+```{r}
+matrix <- array(c(1, 1), dim = c(2,1))
+for (x in 2:100) {
+  matrix <- cbind(matrix, c(x, x**2))
+}
+matrix
+```
+
+```{r}
+generate_matrix <- function(n){
+    return(
+        matrix(
+            rnorm(n^2),
+            nrow=n
+        )
+    )
+}
+```
+
+2\.
+
+```{r}
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    # Insert your code here
+    count <- 0
+    for(row in 1:n){
+        for(col in 1:m){
+            if(x[row,col] >= 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+```{r}
+M <- generate_matrix(3)
+print(M)
+row_wise_scan(M)
+```
+
+3\.
+
+```{r}
+col_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    # Insert your code here
+    count <- 0
+    for(col in 1:m){
+        for(row in 1:n){
+            if(x[row, col] >= 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+```{r}
+M <- generate_matrix(3)
+print(M)
+col_wise_scan(M)
+```
+
+4\.
+
+I believe that col_wise_scan takes shorter to run. R stores elements in matrices by columns not rows. Therefore, col_wise_scan would look at the next memory space for adjacent elements . In row_wise_scan, adjacent elements are stored at some given interval of spaces away from each other. Therefore, the memory keeps having to jump back and forth to find the next element of the matrix.
+
+5\.
+
+```{r}
+time_scan <- function(f, M){
+    initial_time <- Sys.time()
+    f(M)
+    final_time <- Sys.time()
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+```
+
+```{r}
+M <- generate_matrix(50)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+Col_wise_time took longer to run.
+
+6\.
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(100)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(100))
+)
+```
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(1000)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(1000))
+)
+```
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(5000)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(5000))
+)
+```
+
+Row_wise_time takes less time to compute with smaller matrices, but as the dimensionality increases, col_wise time takes increasingly less time to compute compared to row_wise_time.
