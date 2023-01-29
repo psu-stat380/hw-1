@@ -147,6 +147,48 @@ list(
 
 Row wise took longer to run than column wise as I expected in part 4
 
+```{r}
+#6)
 
+
+#100 by 100
+M = M100 <- generate_matrix(100)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M100),
+    col_wise_time = time_scan(row_wise_scan, M100)
+)
+
+#1000 by 1000
+M = M1000 <-generate_matrix(1000)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M1000),
+    col_wise_time = time_scan(row_wise_scan, M1000)
+)
+
+#5000 by 5000
+M = M5000 <- generate_matrix(5000)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M5000),
+    col_wise_time = time_scan(row_wise_scan, M5000)
+)
+
+
+```
+For the 100 by 100 and the 5000 by 5000, column wise scanning is faster, however for the 1000 by 1000 matrix the row wise scanning is faster
+
+## Appendix
+```{r}
+sessionInfo()
+
+
+
+sapply(1:100, function(i) {
+    x <- generate_matrix(100)
+    row_wise_scan(x) == col_wise_scan(x)
+}) %>% sum == 100
+```
 
 
