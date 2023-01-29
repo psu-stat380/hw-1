@@ -1,0 +1,194 @@
+---
+title: "HW1"
+author: "Abdallah Al Rahbi"
+format: pdf
+---
+
+## Question 2
+
+```{r}
+
+library(dplyr)
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+
+#1)
+typeof(my_vec)
+
+# My_Vec contains "character" type data
+
+#2)
+my_vec_double = as.double(my_vec)
+my_vec_int = as.integer(my_vec)
+
+#3)
+
+my_vec_bool = ifelse(my_vec_double <=0, T, F)
+
+# Four elements of my_vec_bool are greater than 0
+
+#4)
+my_vec_double =
+  my_vec_double %>%
+  sort()
+
+
+```
+
+
+
+## Question 3:
+```{r}
+
+
+#1)
+matrix1 = matrix(c(1,2,3,4,5,6,7,8,9), 
+                 byrow = T,
+                 nrow =3 )
+matrix1
+
+matrix2= matrix(c(1:100,c((1:100)^2)), 
+                byrow = T, 
+                nrow =2)
+matrix2
+
+#2)
+generate_matrix <- function(n){
+    return(
+        matrix(
+            rnorm(n^2),
+            nrow=n
+        )
+    )
+}
+
+M = M <- generate_matrix(50)
+mean(M)
+
+#2)
+
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+  
+    # Insert your code here
+    count <- 0
+   
+    
+    for(i in 1:n){
+        for(j in 1: m){
+            if(M[i,j] >= 0){
+                count <- count + 1 
+            } 
+          } 
+      j = j +1
+    } 
+    i = i + 1
+
+    return(count)
+}
+
+#3)
+
+col_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    # Insert your code here
+    count <- 0
+    for(j in 1:m){
+        for(i in 1:n){
+            if(M[i,j] >= 0){
+                count <- count + 1 
+            }
+        }
+      i = i +1
+    }
+  j = j + 1
+  
+    return(count)
+}
+
+```
+
+4)
+
+Since R uses column-major ordering, I expect the column wise scan to be faster
+
+```{r}
+
+#5) 
+
+time_scan <- function(f, M){
+    initial_time <- Sys.time() # Write your code here
+    f(M)
+    final_time <- Sys.time()  # Write your code here
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+
+```
+
+Row wise took longer to run than column wise as I expected in part 4
+
+```{r}
+#6)
+
+
+#100 by 100
+M = M100 <- generate_matrix(100)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M100),
+    col_wise_time = time_scan(row_wise_scan, M100)
+)
+
+#1000 by 1000
+M = M1000 <-generate_matrix(1000)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M1000),
+    col_wise_time = time_scan(row_wise_scan, M1000)
+)
+
+#5000 by 5000
+M = M5000 <- generate_matrix(5000)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M5000),
+    col_wise_time = time_scan(row_wise_scan, M5000)
+)
+
+
+```
+For the 100 by 100 and the 5000 by 5000, column wise scanning is faster, however for the 1000 by 1000 matrix the row wise scanning is faster
+
+## Appendix
+```{r}
+sessionInfo()
+
+
+
+sapply(1:100, function(i) {
+    x <- generate_matrix(100)
+    row_wise_scan(x) == col_wise_scan(x)
+}) %>% sum == 100
+```
+
+
