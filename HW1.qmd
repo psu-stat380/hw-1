@@ -42,7 +42,14 @@ my_vec_double =
   my_vec_double %>%
   sort()
 
-#Question 3:
+
+```
+
+
+
+## Question 3:
+```{r}
+
 
 #1)
 matrix1 = matrix(c(1,2,3,4,5,6,7,8,9), 
@@ -113,4 +120,33 @@ col_wise_scan <- function(x){
 }
 
 ```
+
+4)
+
+Since R uses column-major ordering, I expect the column wise scan to be faster
+
+```{r}
+
+#5) 
+
+time_scan <- function(f, M){
+    initial_time <- Sys.time() # Write your code here
+    f(M)
+    final_time <- Sys.time()  # Write your code here
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+
+```
+
+Row wise took longer to run than column wise as I expected in part 4
+
+
+
 
