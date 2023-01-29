@@ -210,7 +210,6 @@ For example:
 generate_matrix(4)
 ```
 
-
 Let `M` be a fixed $50 \times 50$ matrix
 
 ```{R}
@@ -218,19 +217,19 @@ M <- generate_matrix(50)
 mean(M)
 ```
 
-
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R}
+
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(row in 1:n){
+        for(col in 1:n){
+            if(x[row,col] > 0){
                 count <- count + 1 
             }
         }
@@ -243,11 +242,19 @@ row_wise_scan <- function(x){
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
 
-```R
+```{R}
 col_wise_scan <- function(x){
     count <- 0
-    
-    ... # Insert your code here
+    n <- nrow(x)
+    m <- ncol(x)
+
+    for(col in 1:n){
+        for(row in 1:n){
+            if(x[row,col] > 0){
+                count <- count + 1 
+            }
+        }
+    }
 
     return(count)
 }
@@ -256,13 +263,16 @@ You can check if your code is doing what it's supposed to using the function her
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
 
+```{R}
+#I expect the row_wise_scan to run faster than the column counterpart because typically accessing elements in a row is easier since elements are subsequent while columns need to jump around more.
+```
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
 
-```R
+```{R}
 time_scan <- function(f, M){
-    initial_time <- ... # Write your code here
+    initial_time <- Sys.time() # Write your code here
     f(M)
-    final_time <- ...  # Write your code here
+    final_time <- Sys.time()  # Write your code here
     
     total_time_taken <- final_time - initial_time
     return(total_time_taken)
@@ -271,20 +281,48 @@ time_scan <- function(f, M){
 
 Provide your output to
 
-```R
+```{R}
 list(
     row_wise_time = time_scan(row_wise_scan, M),
     col_wise_time = time_scan(row_wise_scan, M)
 )
 ```
 Which took longer to run? 
+```{R}
+#The row function took longer to run.
+```
 
 6. Repeat this experiment now when:
     * `M` is a $100 \times 100$ matrix
     * `M` is a $1000 \times 1000$ matrix
     * `M` is a $5000 \times 5000$ matrix
 
+```{R}
+M <- generate_matrix(100)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+```{R}
+M <- generate_matrix(1000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+
+```{R}
+M <- generate_matrix(5000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
 What can you conclude?
+```{R}
+#It seems like the row function still takes longer in all the experiments.
+```
 
 <br><br><br><br>
 <br><br><br><br>
@@ -300,7 +338,7 @@ sessionInfo()
 
 [^footnote]: If your code is right, the following code should evaluate to be `TRUE`
 
-    ```R
+    ```{R}
     sapply(1:100, function(i) {
         x <- generate_matrix(100)
         row_wise_scan(x) == col_wise_scan(x)
