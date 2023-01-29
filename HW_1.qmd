@@ -56,3 +56,7 @@ table(my_vec_bool)
 There are four elements greater than 0.
 
 4\.
+
+```{r}
+sort(my_vec_double)
+```
