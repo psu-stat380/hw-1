@@ -28,5 +28,11 @@ typeof(my_vec)
 #2)
 my_vec_double = as.double(my_vec)
 my_vec_int = as.integer(my_vec)
+
+#3)
+
+my_vec_bool = ifelse(my_vec_double <=0, T, F)
+
+# Four elements of my_vec_bool are greater than 0
 ```
 
