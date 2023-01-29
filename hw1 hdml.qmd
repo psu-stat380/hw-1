@@ -1,0 +1,57 @@
+---
+title: "hw1"
+author: "Henry Lex"
+format: html
+#pdf
+editor: visual
+---
+
+Question 2
+
+1\.
+
+```{r}
+
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+
+typeof(my_vec)
+
+"character"
+```
+
+2\.
+
+```{r}
+as.numeric(my_vec)
+
+my_vec_double <- as.double(my_vec)
+
+my_vec_int <- as.integer(my_vec)
+```
+
+3\.
+
+```{r}
+my_vec_bool <- 
+if(my_vec_double > 0)
+  my_vec_double = FALSE
+else(my_vec_double + TRUE)
+
+```
+
+4\.
+
+```{r}
+sort(my_vec_double)
+```
