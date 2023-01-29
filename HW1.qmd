@@ -7,6 +7,8 @@ format: pdf
 ## Question 2
 
 ```{r}
+
+library(dplyr)
 my_vec <- c(
     "+0.07",
     "-0.07",
@@ -34,5 +36,10 @@ my_vec_int = as.integer(my_vec)
 my_vec_bool = ifelse(my_vec_double <=0, T, F)
 
 # Four elements of my_vec_bool are greater than 0
+
+#4)
+my_vec_double =
+  my_vec_double %>%
+  sort()
 ```
 
