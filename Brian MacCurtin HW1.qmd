@@ -4,7 +4,7 @@ author: "Brian MacCurtin"
 toc: true
 title-block-banner: true
 title-block-style: default
-format: html
+#format: html
 format: pdf
 ---
 
@@ -311,7 +311,7 @@ list(
 ```
 Which took longer to run? 
 
-Column wise took longer to run
+Row wise took longer to run
 
 6. Repeat this experiment now when:
     * `M` is a $100 \times 100$ matrix
