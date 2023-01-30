@@ -132,6 +132,8 @@ ifelse (my_vec_double<=0, TRUE, FALSE)
 
 my_vec_bool
 
+"4 elements of my_vec_double are greater than zero"
+
 ```
 
 
@@ -274,7 +276,9 @@ sapply(1:100, function(i) {
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
 
 ```{R}
-"I expect col_wise_scan to take shorter to run because of the way that R generated matrices. R creates matrices by column unless specified otherwise."
+"I expect col_wise_scan to take shorter to run because 
+of the way that R generated matrices. 
+R creates matrices by column unless specified otherwise."
 ```
 
 
