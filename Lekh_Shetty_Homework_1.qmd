@@ -1,7 +1,9 @@
 ---
 title: "Homework_1"
-author: "LekhShetty"
-format: pdf
+author: "Lekh Shetty"
+format: html
+#format: pdf
+editor: visual
 ---
 
 ## Question 2
