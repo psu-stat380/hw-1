@@ -5,7 +5,7 @@ toc: true
 title-block-banner: true
 title-block-style: default
 # format: html
-format: html
+format: pdf
 ---
 
 [Link to the Github repository](https://github.com/psu-stat380/hw-1)
@@ -312,7 +312,7 @@ list(
 ```
     
     * `M` is a $5000 \times 5000$ matrix
-    ```{R}
+```{R}
 M <- generate_matrix(5000)
 
 list(
