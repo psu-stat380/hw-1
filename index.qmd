@@ -376,7 +376,7 @@ list(
 What can you conclude?
 
 ```{R}
-"I can conclude that initially with the 50x50 matrix, row scan took longer. However, as we kept increasing the size of the matrix row scan time difference started to decrease dramatically below the time to do column wise scan, meanwhile column wise scan time difference remained relatively the same."
+"I can conclude that initially with the 50x50 matrix, row scan took longer. With the 100x100 and the 1000x1000 matrix, row scan still took longer. However, with the 5000x5000 matrix, column wise took longer this time. I can conclude that as matrix size keeps increasing, the time difference for the column scan vs the row wise scan will reduce.
 ```
 
 
