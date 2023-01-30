@@ -2,6 +2,8 @@
 title: "Homework_1"
 author: "LekhShetty"
 format: pdf
+output: pdf
+editor: visual
 ---
 
 ## Question 2
@@ -178,5 +180,4 @@ list(
 )
 
 "seems like as the number of rows and columns increase, the runtime of both algorithms takes longer as it has to traverse through more elements"
-
 ```

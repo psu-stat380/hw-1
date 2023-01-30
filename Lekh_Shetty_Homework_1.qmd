@@ -1,7 +1,8 @@
 ---
 title: "Homework_1"
 author: "Lekh Shetty"
-format: html
+output: html
+format: pdf
 #format: pdf
 editor: visual
 ---
