@@ -338,9 +338,10 @@ sessionInfo()
 
 [^footnote]: If your code is right, the following code should evaluate to be `TRUE`
 
-    ```{R}
-    sapply(1:100, function(i) {
-        x <- generate_matrix(100)
-        row_wise_scan(x) == col_wise_scan(x)
-    }) %>% sum == 100
-    ```
+This resulted in TRUE but I could not compile pdf and html due to an error with %>%.
+#```{R}
+#    sapply(1:100, function(i) {
+#        x <- generate_matrix(100)
+#        row_wise_scan(x) == col_wise_scan(x)
+#    }) %>% sum == 100
+#```
