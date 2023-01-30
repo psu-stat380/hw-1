@@ -5,7 +5,7 @@ toc: true
 title-block-banner: true
 title-block-style: default
 # format: html
-format: pdf
+format: html
 ---
 
 [Link to the Github repository](https://github.com/psu-stat380/hw-1)
@@ -202,16 +202,17 @@ mean(M)
 
 2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. You can use the following **starter code**
 
-```R
+```{R}
+#makes a function that allows us to determine amount of positive in the matrix
 row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
     # Insert your code here
     count <- 0
-    for(...){
-        for(...){
-            if(...){
+    for(n in 1:50){
+        for(m in n:50){
+            if(m > 0){
                 count <- count + 1 
             }
         }
@@ -219,53 +220,108 @@ row_wise_scan <- function(x){
 
     return(count)
 }
+
+row_wise_scan(M)
 ```
+
+
+
+```{R}
+#returns false for values less than 0, and true for values greater than 0
+scan <- (M > 0)
+#returns the number of true values
+sum(scan)
+```
+
 
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
 
-```R
+```{R}
 col_wise_scan <- function(x){
     count <- 0
     
-    ... # Insert your code here
+     # Insert your code here
+    count <- 0
+    for(m in 1:50){
+        for(n in m:50){
+            if(m > 0){
+                count <- count + 1 
+            }
+        }
+    }
 
     return(count)
 }
+
+col_wise_scan(M)
 ```
+
+
 You can check if your code is doing what it's supposed to using the function here[^footnote]
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
+```{R}
+#col_wise_scan, because R by default processes info by column.
+```
 
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
-
-```R
+```{R}
 time_scan <- function(f, M){
-    initial_time <- ... # Write your code here
+    initial_time <- Sys.time() # Write your code here
     f(M)
-    final_time <- ...  # Write your code here
+    final_time <- Sys.time()  # Write your code here
     
     total_time_taken <- final_time - initial_time
     return(total_time_taken)
 }
 ```
 
-Provide your output to
 
-```R
+Provide your output to
+```{R}
 list(
     row_wise_time = time_scan(row_wise_scan, M),
     col_wise_time = time_scan(row_wise_scan, M)
 )
 ```
-Which took longer to run? 
+
+
+Which took longer to run? row_wise_time took longer to run.
 
 6. Repeat this experiment now when:
     * `M` is a $100 \times 100$ matrix
+```{R}
+#generates a new matrix as 100 x 100
+M <- generate_matrix(100)
+#gets times for this new matrix
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+    
     * `M` is a $1000 \times 1000$ matrix
-    * `M` is a $5000 \times 5000$ matrix
+```{R}
+M <- generate_matrix(1000)
 
-What can you conclude?
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+    
+    * `M` is a $5000 \times 5000$ matrix
+    ```{R}
+M <- generate_matrix(5000)
+
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+
+What can you conclude? The larger the matrix becomes the longer it takes to run the code on average.
 
 <br><br><br><br>
 <br><br><br><br>
