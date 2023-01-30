@@ -1,0 +1,196 @@
+---
+title: "HW 1"
+author: "Rosalind Shui"
+format: pdf
+editor: visual
+---
+
+
+---
+title: "HW 1"
+author: "Rosalind Shui"
+format: pdf
+editor: visual
+---
+
+
+## Question 2
+
+```{r}
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+```
+
+
+1. 
+```{r}
+typeof(my_vec)
+```
+
+
+2.
+```{r}
+my_vec_double <- as.double(my_vec)
+my_vec_int <- as.integer(my_vec)
+
+my_vec_double
+my_vec_int
+```
+
+
+3. 
+```{r}
+my_vec_bool <- as.logical(my_vec_double >= 0)
+
+my_vec_bool
+```
+Four elements are greater than zero
+
+
+4.
+```{r}
+sort(my_vec_double)
+```
+
+
+
+## Question 3
+
+1. 
+```{r}
+matrix(
+  c(1, 2, 3, 4, 5, 6, 7, 8, 9),
+  nrow = 3,
+  byrow = TRUE
+)
+```
+```{r}
+a <- c(1:100)
+b <- c(a^2)
+
+matrix(
+  c(a, b),
+  nrow = 2,
+  byrow = TRUE
+)
+```
+
+
+2. 
+```{r}
+generate_matrix <- function(n){
+  return(
+    matrix(
+      rnorm(n^2),
+      nrow = n
+    )
+  )
+}
+
+M <- generate_matrix(50)
+```
+
+```{r}
+row_wise_scan <- function(x){
+  n <- nrow(x)
+  m <- ncol(x)
+  
+  count <- 0
+  for(row in 1:n){
+    for(col in 1:m){
+      if(M[row,col] >= 0){
+        count <- count + 1
+      }
+    }
+  }
+  return(count)
+}
+
+row_wise_scan(M)
+```
+
+
+3.
+```{r}
+col_wise_scan <- function(x){
+  n <- nrow(x)
+  m <- ncol(x)
+  
+  count <- 0
+  for(col in 1:m){
+    for(row in 1:n){
+      if(x[col,row] >= 0){
+        count <- count + 1
+      }
+    }
+  }
+  return(count)
+}
+
+col_wise_scan(M)
+```
+
+
+4. I expect `row_wise_scan` to take longer because R takes longer to read wide data than long data.
+
+
+5.
+```{r}
+time_scan <- function(f, M){
+  initial_time <- Sys.time()
+  f(M)
+  final_time <- Sys.time()
+  
+  total_time_taken <- final_time - initial_time
+  return(total_time_taken)
+}
+
+list(
+  row_wise_time = time_scan(row_wise_scan, M),
+  col_wise_time = time_scan(col_wise_scan, M)
+)
+
+```
+
+`col_wise_time` took more time to run.
+
+
+6.
+```{r}
+M <- generate_matrix(100)
+list(
+  row_wise_time = time_scan(row_wise_scan, M),
+  col_wise_time = time_scan(col_wise_scan, M)
+)
+
+M <- generate_matrix(1000)
+list(
+  row_wise_time = time_scan(row_wise_scan, M),
+  col_wise_time = time_scan(col_wise_scan, M)
+)
+
+M <- generate_matrix(5000)
+list(
+  row_wise_time = time_scan(row_wise_scan, M),
+  col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+`col_wise_scan` takes less time to run on larger matrices.
+
+
+
+## Appendix
+```{r}
+sessionInfo()
+```
