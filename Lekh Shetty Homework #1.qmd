@@ -1,0 +1,53 @@
+---
+title: "Homework_1"
+author: "LekhShetty"
+format: pdf
+editor: visual
+jupyter: python3
+---
+
+## Question 2
+
+### Part 1
+
+```{r}
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+typeof(my_vec)
+"The data types of the elements in the vector are characters"
+```
+
+### Part 2
+
+```{r}
+my_vec_double <- as.double(my_vec)
+my_vec_double
+
+my_vec_integer <- as.integer(my_vec)
+my_vec_integer
+```
+
+### Part 3
+
+```{r}
+
+```
+
+### Part 4
+
+```{r}
+my_vec_double <- sort(my_vec_double)
+my_vec_double
+```
+
+## Question 3
