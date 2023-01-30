@@ -55,3 +55,92 @@ else(my_vec_double + TRUE)
 ```{r}
 sort(my_vec_double)
 ```
+
+Question 3:
+
+1\.
+
+```{r}
+matrix(c(1,4,7,2,5,8,3,6,9), 
+       nrow = 3,
+       ncol = 3
+)
+```
+
+```{r}
+rbind(seq(1,100), seq(1,100)^2)
+```
+
+2\.
+
+```{r}
+M <- generate_matrix(50)
+mean(M)
+
+```
+
+```{r}
+row_wise_scan <- function(M){
+    n <- nrow(M)
+    m <- ncol(M)
+
+    # Insert your code here
+    count <- 0
+    for(M in n){
+        for(M in m){
+            if(M > 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+3\.
+
+```{r}
+col_wise_scan <- function(M){
+    n <- nrow(M)
+    m <- ncol(M)
+
+    # Insert your code here
+    count <- 0
+    for(M in m){
+        for(M in n){
+            if(M > 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+4.  row_wise_scan should have a shorter run time because it takes longer to run columns.
+
+5.  
+
+```{r}
+time_scan <- function(f, M){
+    initial_time <- ... # Write your code here
+    f(M)
+    final_time <- ...  # Write your code here
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+```
+
+```{r}
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+```
+
+```{r}
+sessionInfo()
+```
