@@ -8,6 +8,7 @@ author: Carson Pedaci
 # Question 2
 
 1.  The data in the vector are all strings
+
 2.  
 
 ```{r}
@@ -95,7 +96,6 @@ row_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
-    # Insert your code here
     count <- 0
     for(row in 1:n){
         for(col in 1:m){
@@ -122,7 +122,6 @@ col_wise_scan <- function(x){
     n <- nrow(x)
     m <- ncol(x)
 
-    # Insert your code here
     count <- 0
     for(col in 1:m){
         for(row in 1:n){
@@ -144,7 +143,7 @@ col_wise_scan(M)
 
 4\.
 
-I believe that col_wise_scan takes shorter to run. R stores elements in matrices by columns not rows. Therefore, col_wise_scan would look at the next memory space for adjacent elements . In row_wise_scan, adjacent elements are stored at some given interval of spaces away from each other. Therefore, the memory keeps having to jump back and forth to find the next element of the matrix.
+I believe that col_wise_scan takes shorter to run. R stores elements in matrices by columns not rows. Therefore, col_wise_scan would look at the next memory space for adjacent elements. In row_wise_scan, adjacent elements are stored at some given interval of spaces away from each other. Therefore, the memory keeps having to jump back and forth to find the next element of the matrix.
 
 5\.
 
@@ -167,7 +166,7 @@ list(
 )
 ```
 
-Col_wise_time took longer to run.
+Col_wise_time took 0.001 sec longer to run.
 
 6\.
 
