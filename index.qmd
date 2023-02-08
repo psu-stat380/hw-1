@@ -1,6 +1,6 @@
 ---
 title: "Homework 1"
-author: "[Insert your name here]{style='background-color: yellow;'}"
+author: "[Jack Kociolek]{style='background-color: yellow;'}"
 toc: true
 title-block-banner: true
 title-block-style: default
@@ -15,7 +15,10 @@ format: pdf
 ::: {.callout-important}
 ## Due: Sun, Jan 29, 2023 @ 11:59pm
 
+```{R}
+install.packages("markdown")
 
+```
 
 Please read the instructions carefully before submitting your assignment. 
 
@@ -108,7 +111,14 @@ For the following questions, provide your answers in a code cell.
 
 1. What data type does the vector contain?
 
+## Numerical
+
 1. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively, 
+
+```{R}
+my_vec_double <- as.double(my_vec)
+my_vec_int <- as.integer(my_vec)
+```
 
 1. Create a new vector `my_vec_bool` which comprises of:
     * ```r TRUE```if an element in `my_vec_double` is $\le 0$
@@ -116,8 +126,17 @@ For the following questions, provide your answers in a code cell.
 
     How many elements of `my_vec_double` are greater than zero?
 
+```{R}
+my_vec_bool <- ifelse( my_vec_double <= 0, TRUE, FALSE)
+```
+
+## 4 elements of the double vector are greater than zero, in our boolean vector these are true
+
 1. Sort the values of `my_vec_double` in ascending order. 
 
+```{R}
+my_vec_double_sorted <- sort(my_vec_double)
+```
 
 <br><br><br><br>
 <br><br><br><br>
@@ -143,6 +162,22 @@ $$
 1 & 4 & 9 & 16 & 25 & \dots & 10000\\
 \end{bmatrix}
 $$
+
+## First Matrix
+
+```{R}
+matrix1.data <- c(1,2,3,4,5,6,7,8,9)
+> matrix1 <- matrix(mat1.data,nrow=3,ncol=3,byrow=TRUE)
+> matrix1
+```
+
+## Second Matrix
+
+```{R}
+matrix2.data <- c(1,2,3,4,5,6,7,8,9)
+> matrix2 <- matrix(mat1.data,nrow=2,ncol=100,byrow=TRUE)
+> matrix2
+```
 
 ::: {.callout-warning}
 ## Tip
@@ -198,6 +233,26 @@ row_wise_scan <- function(x){
     return(count)
 }
 ```
+```{R}
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+    count <- 0
+    for(i in 1:n)
+    {
+        for(j in 1:m)
+        {
+            if(x[i, j] >= 0){
+                count <- count + 1
+            }
+        }
+    }
+    return(count)
+}
+
+```
+
+## this function iterates through the matrix one row at a time, the final if statement increases the count if the entry is above 0
 
 
 3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
@@ -211,9 +266,30 @@ col_wise_scan <- function(x){
     return(count)
 }
 ```
+```{R}
+col_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+    count <- 0
+    for(j in 1:m)
+    {
+        for(i in 1:n)
+        {
+            if(x[i, j] >= 0){
+                count <- count + 1
+            }
+        }
+    }
+    return(count)
+}
+
+```
+
 You can check if your code is doing what it's supposed to using the function here[^footnote]
 
 4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
+
+## I expect that they would take the same amount of time in a n x n matrix but if the amount of columns is much larger than rows, then row_wise_scan would be faster. The same applies if there are many more rows than columns.
 
 5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
 
@@ -228,6 +304,18 @@ time_scan <- function(f, M){
 }
 ```
 
+```{R}
+time_scan <- function(f, M) {
+  initial_time <- Sys.time()
+  f(M)
+  final_time <- Sys.time()
+  
+  total_time_taken <- final_time - initial_time
+  return(total_time_taken)
+}
+
+```
+
 Provide your output to
 
 ```R
@@ -236,6 +324,14 @@ list(
     col_wise_time = time_scan(row_wise_scan, M)
 )
 ```
+```{R}
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(row_wise_scan, M)
+)
+
+```
+
 Which took longer to run? 
 
 6. Repeat this experiment now when:
