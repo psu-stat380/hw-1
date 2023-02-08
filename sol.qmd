@@ -1,0 +1,397 @@
+---
+title: "Homework 1 - Solutions"
+author: "[Solutions]{style='background-color: yellow;'}"
+toc: true
+title-block-banner: true
+title-block-style: default
+execute: 
+  cache: true
+  freeze: true
+format: html
+# format: pdf
+---
+
+[Link to the Github repository](https://github.com/psu-stat380/hw-1)
+
+---
+
+#### Libraries
+
+```{R}
+#| output: false
+library(dplyr)
+library(knitr)
+```
+
+
+<br><br>
+---
+
+## Question 1
+::: {.callout-tip}
+## 20 points
+:::
+
+::: {.callout-note}
+## 20 points
+
+This has been shown in class. 
+:::
+
+
+
+---
+
+## Question 2
+::: {.callout-tip}
+## 30 points
+:::
+
+Consider the following vector
+
+```{R}
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+```
+
+
+For the following questions, provide your answers in a code cell.
+
+1. What data type does the vector contain?
+
+::: {.callout-note}
+## 3 points
+`my_vec` is a vector of `character`s
+
+```{R}
+typeof(my_vec)
+```
+:::
+
+
+---
+
+2. Create two new vectors called `my_vec_double` and `my_vec_int` which converts `my_vec` to Double & Integer types, respectively. 
+
+
+::: {.callout-note}
+## 10 points
+
+```{R}
+my_vec_int    <- as.integer(my_vec)
+my_vec_int
+
+my_vec_double <- as.double(my_vec)
+my_vec_double
+```
+
+:::
+
+
+---
+
+3. Create a new vector `my_vec_bool` which comprises of:
+    * ```r TRUE```if an element in `my_vec_double` is $\le 0$
+    * ```r FALSE``` if an element in `my_vec_double` is $\ge 0$
+
+    How many elements of `my_vec_double` are greater than zero?
+
+::: {.callout-note}
+## 10 points
+
+```{R}
+my_vec_bool <- my_vec_double < 0
+
+my_vec_bool
+sum(!my_vec_bool)
+```
+:::
+
+---
+
+4. Sort the values of `my_vec_double` in ascending order. 
+
+::: {.callout-note}
+## 7 points
+
+```{R}
+sort(my_vec_double, decreasing=FALSE)
+```
+:::
+
+
+<br><br><br><br>
+<br><br><br><br>
+---
+
+## Question 3
+::: {.callout-tip}
+## 50 points
+:::
+
+In this question we will get a better understanding of how `R` handles large data structures in memory. 
+
+1. Provide `R` code to construct the following matrices:
+$$
+\begin{bmatrix} 
+1 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9\\
+\end{bmatrix}
+\quad \text{ and } \quad
+\begin{bmatrix} 
+1 & 2 & 3 & 4 & 5 & \dots & 100\\
+1 & 4 & 9 & 16 & 25 & \dots & 10000\\
+\end{bmatrix}
+$$
+
+::: {.callout-warning}
+## Tip
+
+Recall the discussion in class on how `R` fills in matrices
+:::
+
+
+::: {.callout-note}
+## 10 points
+
+```{R}
+A <- matrix(
+    1:9, nrow=3, byrow=TRUE
+)
+A %>% kable()
+```
+
+```{R}
+vals <- 1:100
+B <- matrix(
+    c(vals, vals^2), nrow=2, byrow=T
+)
+B %>% kable()
+```
+
+:::
+
+---
+
+In the next part, we will discover how knowledge of the way in which a matrix is stored in memory can inform better code choices. To this end, the following function takes an input $n$ and creates an $n \times n$ matrix with random entries. 
+
+```{R}
+generate_matrix <- function(n){
+    return(
+        matrix(
+            rnorm(n^2),
+            nrow=n
+        )
+    )
+}
+```
+
+For example:
+
+```{R}
+generate_matrix(4)
+```
+
+
+Let `M` be a fixed $50 \times 50$ matrix
+
+```{R}
+M <- generate_matrix(50)
+```
+
+---
+
+2. Write a function `row_wise_scan` which scans the entries of `M` one row after another and outputs the number of elements whose value is $\ge 0$. 
+
+
+
+::: {.callout-note}
+## 15 points
+
+
+```{R}
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    count <- 0
+    for(i in 1:n){
+        for(j in 1:m){
+            if(x[i, j] > 0){
+                count <- count + 1 
+            }
+        }
+    }
+    return(count)
+}
+
+row_wise_scan(M)
+```
+:::
+
+
+---
+
+3. Similarly, write a function `col_wise_scan` which does exactly the same thing but scans the entries of `M` one column after another
+
+::: {.callout-note}
+## 15 points
+
+```{R}
+col_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    count <- 0
+    for(j in 1:m){
+        for(i in 1:n){
+            if(x[i, j] > 0){
+                count <- count + 1 
+            }
+        }
+    }
+    return(count)
+}
+col_wise_scan(M)
+```
+:::
+
+---
+
+
+You can check if your code is doing what it's supposed to using the function here
+
+```{R}
+sapply(1:100, function(i) {
+    x <- generate_matrix(100)
+    row_wise_scan(x) == col_wise_scan(x)
+}) %>% sum == 100
+```
+
+---
+
+4. Between `col_wise_scan` and `row_wise_scan`, which function do you expect to take shorter to run? Why?
+
+::: {.callout-note}
+## 5 points
+
+As discussed in class, R stroes data in a column-wise fashion. Therefore, we should expect `col_wise_scan` to be faster than `row_wise_scan`. 
+:::
+
+---
+
+5. Write a function `time_scan` which takes in a method `f` and a matrix `M` and outputs the amount of time taken to run `f(M)`
+
+::: {.callout-note}
+## 5 points
+
+```{R}
+time_scan <- function(f, M){
+    initial_time <- Sys.time()
+    f(M)
+    final_time <- Sys.time()
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+```
+
+Provide your output to
+
+```{R}
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+Which took longer to run?
+
+> `row_wise_scan` took longer.
+::: 
+
+
+---
+
+6. Repeat this experiment now when:
+    * `M` is a $100 \times 100$ matrix
+    * `M` is a $1000 \times 1000$ matrix
+    * `M` is a $5000 \times 5000$ matrix
+
+What can you conclude?
+
+
+::: {.callout-note}
+##  5 points
+
+In all of the following illustrations, we can see that `col_wise_scan` is consistently faster than `row_wise_scan`. 
+
+```{R}
+M <- generate_matrix(100)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+```{R}
+M <- generate_matrix(1000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+```{R}
+M <- generate_matrix(5000)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+:::
+
+
+In general, there are a lot of external factors which influence the execution time, e.g., any other applications open on your machine, available system resources, etc.  A more principled way to test the execution time is as follows. 
+
+```{R}
+library(microbenchmark)
+library(ggplot2)
+
+mbm <- microbenchmark(
+    row_wise = row_wise_scan(generate_matrix(10)),
+    col_wise = col_wise_scan(generate_matrix(10)),
+    times = 50
+)
+
+mbm
+autoplot(mbm)
+```
+
+
+
+<br><br><br><br>
+<br><br><br><br>
+---
+
+# Appendix
+
+::: {.callout collapse="true"}
+## Session Information
+
+Print your `R` session information using the following command
+
+```{R}
+sessionInfo()
+```
+:::
