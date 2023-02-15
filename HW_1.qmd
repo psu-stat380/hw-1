@@ -1,0 +1,194 @@
+---
+title: "HW_1"
+format: pdf
+editor: visual
+author: Carson Pedaci
+---
+
+# Question 2
+
+1.  The data in the vector are all strings
+
+2.  
+
+```{r}
+my_vec <- c(
+    "+0.07",
+    "-0.07",
+    "+0.25",
+    "-0.84",
+    "+0.32",
+    "-0.24",
+    "-0.97",
+    "-0.36",
+    "+1.76",
+    "-0.36"
+)
+```
+
+```{r}
+my_vec_double <- c()
+for (elem in my_vec) {
+  my_vec_double <- append(my_vec_double, as.double(elem))
+}
+my_vec_double
+```
+
+```{r}
+my_vec_int <- c()
+for (elem in my_vec) {
+  my_vec_int <- append(my_vec_int, as.integer(elem))
+}
+my_vec_int
+```
+
+3\.
+
+```{r}
+my_vec_bool <- c()
+for (elem in my_vec_double) {
+  if (elem >= 0)  {my_vec_bool <- append(my_vec_bool, TRUE)}
+  else if (elem <= 0) {my_vec_bool <- append(my_vec_bool, FALSE)}
+}
+print(my_vec_bool)
+table(my_vec_bool)
+```
+
+There are four elements greater than 0.
+
+4\.
+
+```{r}
+sort(my_vec_double)
+```
+
+# Question 3
+
+1\.
+
+```{r}
+print(array(c(c(1, 4, 7), c(2, 5, 8), c(3, 6, 9)), dim = c(3,3)))
+```
+
+```{r}
+matrix <- array(c(1, 1), dim = c(2,1))
+for (x in 2:100) {
+  matrix <- cbind(matrix, c(x, x**2))
+}
+matrix
+```
+
+```{r}
+generate_matrix <- function(n){
+    return(
+        matrix(
+            rnorm(n^2),
+            nrow=n
+        )
+    )
+}
+```
+
+2\.
+
+```{r}
+row_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    count <- 0
+    for(row in 1:n){
+        for(col in 1:m){
+            if(x[row,col] >= 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+```{r}
+M <- generate_matrix(3)
+print(M)
+row_wise_scan(M)
+```
+
+3\.
+
+```{r}
+col_wise_scan <- function(x){
+    n <- nrow(x)
+    m <- ncol(x)
+
+    count <- 0
+    for(col in 1:m){
+        for(row in 1:n){
+            if(x[row, col] >= 0){
+                count <- count + 1 
+            }
+        }
+    }
+
+    return(count)
+}
+```
+
+```{r}
+M <- generate_matrix(3)
+print(M)
+col_wise_scan(M)
+```
+
+4\.
+
+I believe that col_wise_scan takes shorter to run. R stores elements in matrices by columns not rows. Therefore, col_wise_scan would look at the next memory space for adjacent elements. In row_wise_scan, adjacent elements are stored at some given interval of spaces away from each other. Therefore, the memory keeps having to jump back and forth to find the next element of the matrix.
+
+5\.
+
+```{r}
+time_scan <- function(f, M){
+    initial_time <- Sys.time()
+    f(M)
+    final_time <- Sys.time()
+    
+    total_time_taken <- final_time - initial_time
+    return(total_time_taken)
+}
+```
+
+```{r}
+M <- generate_matrix(50)
+list(
+    row_wise_time = time_scan(row_wise_scan, M),
+    col_wise_time = time_scan(col_wise_scan, M)
+)
+```
+
+Col_wise_time took 0.001 sec longer to run.
+
+6\.
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(100)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(100))
+)
+```
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(1000)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(1000))
+)
+```
+
+```{r}
+list(
+  row_wise_time = time_scan(row_wise_scan, generate_matrix(5000)),
+    col_wise_time = time_scan(col_wise_scan, generate_matrix(5000))
+)
+```
+
+Row_wise_time takes less time to compute with smaller matrices, but as the dimensionality increases, col_wise time takes increasingly less time to compute compared to row_wise_time.
